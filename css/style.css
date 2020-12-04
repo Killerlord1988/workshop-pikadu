@@ -263,14 +263,19 @@ body {
   background-color: #fafafa;
   border: 1px solid #e8e8e8;
   padding: 15px 25px;
+}
+
+.user-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
+
 .user-info {
   display: flex;
   align-items: center;
   text-decoration: none;
+  margin-right: auto;
 }
 .user-avatar {
   border-radius: 50%;
@@ -281,7 +286,62 @@ body {
   font-size: 16px;
   line-height: 24px;
   color: #595959;
+  max-width: 123px;
+  overflow: hidden;
+  margin-right: 13px;
 }
+
+.edit {
+  margin-right: 10px;
+}
+
+.edit-container {
+  display: none;
+}
+
+.edit-container.visible {
+  display: block;
+}
+
+.edit-label {
+  display: block;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.edit-input {
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  padding: 5px 10px;
+}
+
+.edit-btn {
+  width: 100%;
+  cursor: pointer;
+  background-color: #fa8c16;
+  border: none;
+  border-radius: 2px;
+  text-transform: uppercase;
+  line-height: 32px;
+  color: #ffffff;
+  font-size: 12px;
+  margin-bottom: 15px;
+}
+
+.edit-btn:hover {
+  opacity: 0.8;
+}
+
+.edit-btn:active {
+  filter: brightness(85%);
+}
+
+.icon-edit {
+  width: 20px;
+  height: 20px;
+}
+
 .icon-exit {
   width: 20px;
   height: 20px;
@@ -478,6 +538,11 @@ body {
     transition: transform 0.2s;
     overflow-y: auto;
   }
+
+  .user-name {
+    max-width: 85px;
+  }
+
   .sidebar.visible {
     transform: translateX(0);
   }

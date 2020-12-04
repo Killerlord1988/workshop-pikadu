@@ -10,6 +10,8 @@ menuToggle.addEventListener('click', function (event) {
   menu.classList.toggle('visible');
 })
 
+const reqExpValidEmail = /^\w+@\w+\.\w{2,}$/;
+
 const loginElem = document.querySelector('.login');
 const loginForm = loginElem.querySelector('.login-form');
 const emailInput = loginElem.querySelector('.login-email');
@@ -18,6 +20,8 @@ const loginSignup = loginElem.querySelector('.login-signup');
 
 const userElem = document.querySelector('.user');
 const userNameElem = document.querySelector('.user-name');
+
+const exitElem = document.querySelector('.exit');
 
 const listUsers = [
   {
@@ -37,6 +41,11 @@ const listUsers = [
 const setUsers = {
   user: null,
   logIn(email, password, handler) {
+    if(!reqExpValidEmail.test(email)) {
+      alert('email не валиден');
+      return;
+    }
+
     const user = this.getUser(email);
     if (user && user.password === password) {
       this.authorizedUser(user);
@@ -45,10 +54,22 @@ const setUsers = {
       alert('Пользователь с такими данными не найден')
     }
   },
-  logOut() {
-
+  logOut(handler) {
+    this.user = null;
+    handler();
   },
   signUp(email, password, handler) {
+
+    if(!reqExpValidEmail.test(email)) {
+      alert('email не валиден');
+      return;
+    }
+
+    if (!email.trim() || !password.trim()) {
+      alert('Введите данные')
+      return;
+    }
+
     if (!this.getUser(email)) {
       const user = {email, password, displayName: email}
       listUsers.push(user);
@@ -87,6 +108,7 @@ loginForm.addEventListener('submit', evt => {
   const passwordValue = passwordInput.value;
 
   setUsers.logIn(emailValue, passwordValue, toggleAuthDom);
+  loginForm.reset();
 });
 
 loginSignup.addEventListener('click', evt => {
@@ -95,6 +117,12 @@ loginSignup.addEventListener('click', evt => {
   const passwordValue = passwordInput.value;
 
   setUsers.signUp(emailValue, passwordValue, toggleAuthDom);
+  loginForm.reset();
 });
+
+exitElem.addEventListener('click', evt => {
+  evt.preventDefault();
+  setUsers.logOut(toggleAuthDom);
+})
 
 toggleAuthDom();
